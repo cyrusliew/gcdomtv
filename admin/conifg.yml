@@ -1,0 +1,56 @@
+backend:
+  name: github
+  repo: cyrusliew/gcdomtv
+  branch: main
+
+media_folder: "media"
+public_folder: "/media"
+
+collections:
+  - name: "tv1"
+    label: "TV 1 Playlist"
+    files:
+      - file: "tv1/playlist.json"
+        label: "TV 1 Playlist"
+        name: "tv1_playlist"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Type", name: "type", widget: "select", options: ["image", "video"] }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Duration (s)", name: "duration", widget: "number" }
+
+  - name: "tv2"
+    label: "TV 2 Playlist"
+    files:
+      - file: "tv2/playlist.json"
+        label: "TV 2 Playlist"
+        name: "tv2_playlist"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Type", name: "type", widget: "select", options: ["image", "video"] }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Duration (s)", name: "duration", widget: "number" }
+
+  - name: "tv3"
+    label: "TV 3 Playlist"
+    files:
+      - file: "tv3/playlist.json"
+        label: "TV 3 Playlist"
+        name: "tv3_playlist"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Type", name: "type", widget: "select", options: ["image", "video"] }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Duration (s)", name: "duration", widget: "number" }

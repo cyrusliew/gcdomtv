@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>TV Player</title>
+  <style>
+    body, html { margin: 0; height: 100%; background: black; }
+    #viewer, #player {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <img id="viewer" />
+  <video id="player" autoplay muted playsinline></video>
+
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const tv = getQueryParam('tv') || 'tv1'; // fallback to tv1
+    const playlistUrl = `${tv}/playlist.json`;
+
+    async function startPlaylist() {
+      try {
+        const res = await fetch(playlistUrl);
+        const items = await res.json();
+        let index = 0;
+
+        const img = document.getElementById('viewer');
+        const video = document.getElementById('player');
+
+        async function playNext() {
+          const item = items[index];
+          img.style.display = 'none';
+          video.style.display = 'none';
+
+          if (item.type === 'image') {
+            img.src = item.url;
+            img.style.display = 'block';
+            setTimeout(playNext, item.duration * 1000);
+          } else if (item.type === 'video') {
+            video.src = item.url;
+            video.style.display = 'block';
+            video.play();
+            video.onended = playNext;
+          }
+
+          index = (index + 1) % items.length;
+        }
+
+        playNext();
+      } catch (err) {
+        document.body.innerHTML = "<h2 style='color:white;'>Error loading playlist</h2>";
+        console.error(err);
+      }
+    }
+
+    startPlaylist();
+  </script>
+</body>
+</html>

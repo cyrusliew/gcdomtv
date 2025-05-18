@@ -1,0 +1,12 @@
+[
+  {
+    "type": "image",
+    "url": "/media/image1.jpg",
+    "duration": 10
+  },
+  {
+    "type": "video",
+    "url": "/media/video1.mp4",
+    "duration": 30
+  }
+]
