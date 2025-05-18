@@ -25,6 +25,16 @@
 
     const tv = getQueryParam('tv') || 'tv1'; // fallback to tv1
     const playlistUrl = `${tv}/playlist.json`;
+    const baseUrl = 'https://cyrusliew.github.io/gcdomtv/';
+
+    function getFullUrl(path) {
+      // If the URL is already absolute, return it as is
+      if (path.startsWith('http://') || path.startsWith('https://')) {
+        return path;
+      }
+      // Otherwise, prepend the base URL
+      return baseUrl + path;
+    }
 
     async function startPlaylist() {
       try {
@@ -41,11 +51,11 @@
           video.style.display = 'none';
 
           if (item.type === 'image') {
-            img.src = item.url;
+            img.src = getFullUrl(item.url);
             img.style.display = 'block';
             setTimeout(playNext, item.duration * 1000);
           } else if (item.type === 'video') {
-            video.src = item.url;
+            video.src = getFullUrl(item.url);
             video.style.display = 'block';
             video.play();
             video.onended = playNext;
