@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: cyrusliew/gcdomtv
+  name: git-gateway
   branch: main
 
 media_folder: "media"
