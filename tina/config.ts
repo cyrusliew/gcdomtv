@@ -2,15 +2,10 @@ import { defineConfig } from "tinacms";
 
 // Your hosting provider likely uses process.env.NODE_ENV and process.env.VERCEL_ENV
 // to determine the environment. Refer to their documentation. 
-const branch = process.env.GITHUB_BRANCH ||
-  process.env.VERCEL_GIT_COMMIT_REF ||
-  process.env.HEAD ||
-  null;
+const branch = "main"; // For GitHub Pages, the branch is typically 'main' or the branch you're deploying from.
 
 export default defineConfig({
   branch,
-  clientId: process.env.TINA_CLIENT_ID, // Get this from tina.io
-  token: process.env.TINA_TOKEN, // Get this from tina.io
 
   build: {
     outputFolder: "admin",
