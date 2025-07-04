@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "eleventy",
+    "tina-build": "tinacms build",
     "serve": "eleventy --serve --port 8081",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,5 +14,9 @@
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2"
+  },
+  "dependencies": {
+    "@tinacms/cli": "^1.9.9",
+    "tinacms": "^2.7.9"
   }
 }
