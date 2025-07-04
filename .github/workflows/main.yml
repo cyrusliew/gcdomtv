@@ -38,5 +38,6 @@ jobs:
         uses: actions/deploy-pages@v3
 
       # This comment is added to trigger a new workflow run and potentially refresh GitHub Pages environment.
+      # Second attempt to trigger refresh.
 
       
