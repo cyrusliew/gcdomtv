@@ -1,0 +1,18 @@
+backend:
+  name: github
+  repo: cyrusliew/gcdomtv
+  branch: main
+
+media_folder: "src/media"
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "src/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+    editor:
+      preview: false

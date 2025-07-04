@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>TV Player</title>
+  <style>
+    body, html { margin: 0; height: 100%; background: black; }
+    .player {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .player.active {
+      opacity: 1;
+    }
+    .player img, .player video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+  <div id="player1" class="player"></div>
+  <div id="player2" class="player"></div>
+
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const tv = getQueryParam('tv') || 'tv1'; // fallback to tv1
+    const playlistUrl = `${tv}/playlist.json`;
+
+    async function startPlaylist() {
+      try {
+        const res = await fetch(playlistUrl);
+        const items = await res.json();
+        if (items.length === 0) {
+            document.body.innerHTML = "<h2 style='color:white;'>Playlist is empty</h2>";
+            return;
+        }
+
+        let index = 0;
+        const player1 = document.getElementById('player1');
+        const player2 = document.getElementById('player2');
+        let activePlayer = player1;
+        let inactivePlayer = player2;
+
+        function playNext() {
+          const item = items[index];
+
+          inactivePlayer.innerHTML = '';
+          let element;
+          if (item.type === 'image') {
+            element = document.createElement('img');
+            element.src = item.url;
+            setTimeout(playNext, item.duration * 1000);
+          } else { // video
+            element = document.createElement('video');
+            element.src = item.url;
+            element.autoplay = true;
+            element.muted = true;
+            element.playsinline = true;
+            element.onended = playNext;
+          }
+          inactivePlayer.appendChild(element);
+
+          activePlayer.classList.remove('active');
+          inactivePlayer.classList.add('active');
+
+          [activePlayer, inactivePlayer] = [inactivePlayer, activePlayer];
+          
+          index = (index + 1) % items.length;
+        }
+
+        playNext();
+
+      } catch (err) {
+        document.body.innerHTML = "<h2 style='color:white;'>Error loading playlist</h2>";
+        console.error(err);
+      }
+    }
+
+    startPlaylist();
+  </script>
+</body>
+</html>

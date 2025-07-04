@@ -1,0 +1,17 @@
+{
+  "name": "gcdomtv",
+  "version": "1.0.0",
+  "description": "A simple web-based TV player that can display images and videos in a playlist format. This project is hosted on GitHub Pages at [https://cyrusliew.github.io/gcdomtv/](https://cyrusliew.github.io/gcdomtv/).",
+  "main": "index.js",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve --port 8081",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}
